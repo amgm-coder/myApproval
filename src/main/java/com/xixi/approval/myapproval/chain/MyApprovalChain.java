@@ -16,9 +16,9 @@ public class MyApprovalChain extends AbstractApprovalChain {
     @Autowired
     private TestService testService;
 
-
     /**
      * 得到审批版本
+     *
      * @param relateId 根据关联的id
      * @return 版本
      */
@@ -36,7 +36,6 @@ public class MyApprovalChain extends AbstractApprovalChain {
     public void init() {
         super.init();
     }
-
 
 
 }

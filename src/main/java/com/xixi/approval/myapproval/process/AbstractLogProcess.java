@@ -12,32 +12,34 @@ import java.util.List;
  * @Description
  * @createTime 2021/4/28
  */
-public interface AbstractLogProcess   {
-
-
-
+public interface AbstractLogProcess {
 
     /**
      * 记录审批日志
+     *
      * @param currentNode 节点
      * @param approvalDTO approvalDTO
      * @throws ApprovalException 异常
      */
-    abstract void recordApprovalLog(AbstractNode currentNode,ApprovalDTO approvalDTO,AbstractNode cur) throws ApprovalException;
+    void recordApprovalLog(AbstractNode currentNode, ApprovalDTO approvalDTO, AbstractNode cur) throws ApprovalException;
 
     /**
      * 记录回滚日志
-     * @param currentNode 节点
+     *
+     * @param fatherNode
      * @param approvalDTO approvalDTO
+     * @param currentNode 节点
      * @throws ApprovalException 异常
      */
-    abstract void recordRollbackLog(AbstractNode fatherNode,ApprovalDTO approvalDTO,AbstractNode cur) throws ApprovalException;
+    void recordRollbackLog(AbstractNode fatherNode, ApprovalDTO approvalDTO, AbstractNode currentNode) throws ApprovalException;
 
     /**
-     *  保存下一个节点日志
+     * 保存下一个节点日志
+     *
      * @param currentNode 下一个节点
      * @param approvalDTO approvalDTO
      * @return 日志集合
      */
-    abstract List<ApprovalLogEntity> saveNextNodeLog(AbstractNode currentNode, ApprovalDTO approvalDTO);
+    List<ApprovalLogEntity> saveNextNodeLog(AbstractNode currentNode, ApprovalDTO approvalDTO);
+
 }

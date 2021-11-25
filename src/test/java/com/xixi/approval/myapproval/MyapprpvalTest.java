@@ -40,35 +40,36 @@ public class MyapprpvalTest {
     private TestService testService;
     @Autowired
     private MyApprovalChain approvalChain;
-    
-    Integer version =1;
-    String type  = "TEST";
+
+    Integer version = 1;
+    String type = "TEST";
 
     /**
      * 创建审批节点设置
+     *
      * @param version
      * @param type
      */
     @Test
-    public void  setApprovalConfig(){
+    public void setApprovalConfig() {
         List<ApprovalConfigEntity> list = new ArrayList<>();
-        for (int i=1;i<5;i++){
-            if(i==1 || i==4){
-                list.add(createSimpleNode(i,version,type,NodeEnum.SIMPLE.getTypeName(),0));
-            }else if (i==2){
-                list.add(createParallelNode(i,version,type));
-            }else {
-                list.add(createCountersignNode(i,version,type));
+        for (int i = 1; i < 5; i++) {
+            if (i == 1 || i == 4) {
+                list.add(createSimpleNode(i, version, type, NodeEnum.SIMPLE.getTypeName(), 0));
+            } else if (i == 2) {
+                list.add(createParallelNode(i, version, type));
+            } else {
+                list.add(createCountersignNode(i, version, type));
             }
         }
         approvalConfigService.setApprovalConfig(list);
     }
 
     /**
-     *   创建审批
+     * 创建审批
      */
     @Test
-    public void createApprovals(){
+    public void createApprovals() {
         TestEntity testEntity = new TestEntity();
         testEntity.setVersion(version);
         testService.save(testEntity);
@@ -94,8 +95,8 @@ public class MyapprpvalTest {
         List<TestEntity> list = testService.lambdaQuery().eq(TestEntity::getVersion, version)
                 .list();
         assertThat(list).isNotEmpty();
-        for (int i=1;i<4;i++){
-             approvalNode(i,list.get(0).getId());
+        for (int i = 1; i < 4; i++) {
+            approvalNode(i, list.get(0).getId());
         }
         rollBackNode();
     }
@@ -108,7 +109,7 @@ public class MyapprpvalTest {
         approvalChain.rollback(approvalDTO);
     }
 
-    public void approvalNode(Integer i,String id){
+    public void approvalNode(Integer i, String id) {
         ApprovalDTO approvalDTO = getApprovalDTO(i);
         try {
             AbstractNode currentNode = approvalChain.getCurrentNode(id);
@@ -123,13 +124,13 @@ public class MyapprpvalTest {
     }
 
     @Test
-    public void currentNode(){
+    public void currentNode() {
         AbstractNode currentNode = approvalChain.getCurrentNode("1400326214150234114");
         currentNode.getNextNode();
     }
 
 
-    public ApprovalDTO getApprovalDTO(Integer i){
+    public ApprovalDTO getApprovalDTO(Integer i) {
         ApprovalDTO approvalDTO = new ApprovalDTO();
         approvalDTO.setRelated("1400326214150234114");
         approvalDTO.setType(OperateEnum.APPROVAL.getOperate());
@@ -139,18 +140,20 @@ public class MyapprpvalTest {
         approvalDTO.setApprovalUserDTO(approvalUserDTO);
         return approvalDTO;
     }
+
     /**
      * 创建简单节点
-     * @param i  节点位置
-     * @param version  版本
-     * @return   approvalConfigEntity  节点类
+     *
+     * @param i       节点位置
+     * @param version 版本
+     * @return approvalConfigEntity  节点类
      */
-    public ApprovalConfigEntity createSimpleNode(Integer i,Integer version,String type,String name,Integer childrenIdx){
+    public ApprovalConfigEntity createSimpleNode(Integer i, Integer version, String type, String name, Integer childrenIdx) {
         ApprovalConfigEntity approvalConfigEntity = new ApprovalConfigEntity();
         approvalConfigEntity.setNodeType(NodeEnum.SIMPLE.getType());
         approvalConfigEntity.setChildrenIdx(childrenIdx);
         approvalConfigEntity.setApprovalRole(i.toString());
-        approvalConfigEntity.setName(name+i);
+        approvalConfigEntity.setName(name + i);
         approvalConfigEntity.setVersion(version);
         approvalConfigEntity.setApprovalType(type);
         approvalConfigEntity.setNodeIndex(i);
@@ -159,22 +162,23 @@ public class MyapprpvalTest {
 
     /**
      * 创建并行节点
+     *
      * @param i
      * @param version
      * @return
      */
-    public ApprovalConfigEntity createParallelNode(Integer i,Integer version,String type){
+    public ApprovalConfigEntity createParallelNode(Integer i, Integer version, String type) {
         ApprovalConfigEntity approvalConfigEntity = new ApprovalConfigEntity();
         approvalConfigEntity.setNodeType(NodeEnum.PARALLEL.getType());
         approvalConfigEntity.setChildrenIdx(0);
         approvalConfigEntity.setApprovalRole(i.toString());
-        approvalConfigEntity.setName(NodeEnum.PARALLEL.getTypeName()+i);
+        approvalConfigEntity.setName(NodeEnum.PARALLEL.getTypeName() + i);
         approvalConfigEntity.setVersion(version);
         approvalConfigEntity.setNodeIndex(i);
         approvalConfigEntity.setApprovalType(type);
         List<ApprovalConfigEntity> list = new ArrayList<>();
-        for (int j = 1;j<i;j++){
-             list.add(createSimpleNode(i,version,type,NodeEnum.PARALLEL.getTypeName(),j));
+        for (int j = 1; j < i; j++) {
+            list.add(createSimpleNode(i, version, type, NodeEnum.PARALLEL.getTypeName(), j));
         }
         approvalConfigEntity.setList(list);
         return approvalConfigEntity;
@@ -183,22 +187,23 @@ public class MyapprpvalTest {
 
     /**
      * 创建并发节点
+     *
      * @param i
      * @param version
      * @return
      */
-    public ApprovalConfigEntity createCountersignNode(Integer i,Integer version,String type){
+    public ApprovalConfigEntity createCountersignNode(Integer i, Integer version, String type) {
         ApprovalConfigEntity approvalConfigEntity = new ApprovalConfigEntity();
         approvalConfigEntity.setNodeType(NodeEnum.COUNTERSIGN.getType());
         approvalConfigEntity.setChildrenIdx(0);
         approvalConfigEntity.setApprovalRole(i.toString());
-        approvalConfigEntity.setName(NodeEnum.COUNTERSIGN.getTypeName()+i);
+        approvalConfigEntity.setName(NodeEnum.COUNTERSIGN.getTypeName() + i);
         approvalConfigEntity.setVersion(version);
         approvalConfigEntity.setNodeIndex(i);
         approvalConfigEntity.setApprovalType(type);
         List<ApprovalConfigEntity> list = new ArrayList<>();
-        for (int j = 1;j<i;j++){
-            list.add(createSimpleNode(i,version,type,NodeEnum.COUNTERSIGN.getTypeName(),j));
+        for (int j = 1; j < i; j++) {
+            list.add(createSimpleNode(i, version, type, NodeEnum.COUNTERSIGN.getTypeName(), j));
         }
         approvalConfigEntity.setList(list);
         return approvalConfigEntity;

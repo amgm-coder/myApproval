@@ -7,30 +7,29 @@ package com.xixi.approval.myapproval.enums;
  */
 public enum StatusEnum {
     /**
-     *  可以进行审批操作的简单节点是Ready状态
+     * 可以进行审批操作的简单节点是Ready状态
      */
-    READY("READY","审批"),
+    READY("READY", "审批"),
     /**
-     *  审批完成
+     * 审批完成
      */
-    NORMAL("COMPLETE","审批完成"),
+    NORMAL("COMPLETE", "审批完成"),
     /**
      * 现在还没有走到的节点状态
      */
-    FUTURE("FUTURE","待审批"),
+    FUTURE("FUTURE", "待审批"),
     /**
      * 只有复杂节点有该状态，表示在等待子节点审批
      */
-    WAITING("WAITING","子节点待审批"),
+    WAITING("WAITING", "子节点待审批"),
     /**
      * 回滚
      */
-    ROLLBACK("ROLLBACK","驳回"),
+    ROLLBACK("ROLLBACK", "驳回"),
     /**
-     *   只有复杂节点有该状态，在并发节点下，一个子节点过了审批，其他字节点为跳过
+     * 只有复杂节点有该状态，在并发节点下，一个子节点过了审批，其他字节点为跳过
      */
-    SKIP("SKIP","跳过")
-    ;
+    SKIP("SKIP", "跳过");
 
     private String status;
     private String statusCn;

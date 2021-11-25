@@ -17,7 +17,6 @@ import java.util.Map;
 @Component
 public abstract class AbstractProcess {
 
-
     @Autowired
     public SimpleNodeProcess simpleNodeProcess;
     @Autowired
@@ -31,13 +30,12 @@ public abstract class AbstractProcess {
      * 初始化 策略模式
      */
     @PostConstruct
-    public void init(){
+    public void init() {
         processMap = new HashMap<>(16);
-        processMap.put(NodeEnum.SIMPLE.getType(),simpleNodeProcess);
-        processMap.put(NodeEnum.PARALLEL.getType(),parallelNodeProcess);
-        processMap.put(NodeEnum.COUNTERSIGN.getType(),countersignNodeProcess);
+        processMap.put(NodeEnum.SIMPLE.getType(), simpleNodeProcess);
+        processMap.put(NodeEnum.PARALLEL.getType(), parallelNodeProcess);
+        processMap.put(NodeEnum.COUNTERSIGN.getType(), countersignNodeProcess);
     }
-
 
 
 }

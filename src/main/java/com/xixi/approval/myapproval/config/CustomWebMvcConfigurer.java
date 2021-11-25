@@ -22,22 +22,17 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * swagger2和用户信息的统一拦截器
+ *
  * @author xixi
  */
 @Configuration
 @EnableSwagger2
 @EnableKnife4j
 @Import(BeanValidatorPluginsConfiguration.class)
-public class CustomWebMvcConfigurer  extends WebMvcConfigurationSupport {
-
-
-
+public class CustomWebMvcConfigurer extends WebMvcConfigurationSupport {
 
     @Value("${swagger.enable}")
     private boolean enableSwagger;
-
-
-
 
     @Bean
     public ObjectMapper serializingObjectMapper() {

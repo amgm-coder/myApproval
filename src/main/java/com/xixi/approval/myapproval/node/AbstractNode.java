@@ -1,6 +1,5 @@
 package com.xixi.approval.myapproval.node;
 
-import lombok.Builder;
 import lombok.Data;
 
 
@@ -10,7 +9,7 @@ import lombok.Data;
  * @createTime 2021/4/26
  */
 @Data
-public  class AbstractNode {
+public class AbstractNode {
 
     /**
      * 审批类型
@@ -21,7 +20,6 @@ public  class AbstractNode {
      * 状态
      */
     protected String status;
-
 
     /**
      * 节点类型
@@ -48,7 +46,7 @@ public  class AbstractNode {
     protected Integer childrenIdx;
 
 
-    public AbstractNode(String type, String status, String nodeType, String name, String reason,String completeUser,Integer nodeIdx,Integer childrenIdx) {
+    public AbstractNode(String type, String status, String nodeType, String name, String reason, String completeUser, Integer nodeIdx, Integer childrenIdx) {
         this.type = type;
         this.status = status;
         this.nodeType = nodeType;
@@ -62,14 +60,14 @@ public  class AbstractNode {
     public AbstractNode() {
     }
 
-    public void setNextNode(AbstractNode node){
-        node.nodeIdx = nodeIdx+1;
+    public void setNextNode(AbstractNode node) {
+        node.nodeIdx = nodeIdx + 1;
         this.nextNode = node;
     }
 
 
-    public void setChildNextNode(AbstractNode node){
-        node.childrenIdx = childrenIdx+1;
+    public void setChildNextNode(AbstractNode node) {
+        node.childrenIdx = childrenIdx + 1;
         this.nextNode = node;
     }
 }

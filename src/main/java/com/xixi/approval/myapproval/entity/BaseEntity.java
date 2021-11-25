@@ -28,18 +28,18 @@ public class BaseEntity extends Model implements Serializable {
      */
     public static final Integer DEL_FLAG_FALSE = 0;
 
-    @TableField(value="CREATE_TIME",fill = FieldFill.INSERT)
+    @TableField(value = "CREATE_TIME", fill = FieldFill.INSERT)
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createTime;
 
-    @TableField(value = "UPDATE_TIME",fill = FieldFill.INSERT_UPDATE)
+    @TableField(value = "UPDATE_TIME", fill = FieldFill.INSERT_UPDATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date updateTime;
 
     @TableLogic
-    @TableField(value="DEL_FLAG",fill = FieldFill.INSERT)
+    @TableField(value = "DEL_FLAG", fill = FieldFill.INSERT)
     private Long delFlag;
 
 }

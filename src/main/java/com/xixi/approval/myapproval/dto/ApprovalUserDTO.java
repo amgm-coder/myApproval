@@ -11,7 +11,7 @@ import java.io.Serializable;
  * @createTime 2021/4/28
  */
 @Data
-public class ApprovalUserDTO  implements Serializable {
+public class ApprovalUserDTO implements Serializable {
     @ApiModelProperty("审批条件")
     private String condition;
     @ApiModelProperty("用户id")

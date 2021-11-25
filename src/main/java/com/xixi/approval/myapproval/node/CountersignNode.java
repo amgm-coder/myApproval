@@ -14,11 +14,9 @@ public class CountersignNode extends SimpleNode {
 
     public AbstractNode node;
 
-
-
-    public CountersignNode(List<String> applyUser, String type, String status,String nodeType, String name, String reason,String completeUserId
-            ,Integer childrenIdx,Integer nodeIndex) {
-        super(applyUser,type,status,nodeType,name,reason,completeUserId,childrenIdx,nodeIndex);
+    public CountersignNode(List<String> applyUser, String type, String status, String nodeType, String name, String reason, String completeUserId
+            , Integer childrenIdx, Integer nodeIndex) {
+        super(applyUser, type, status, nodeType, name, reason, completeUserId, childrenIdx, nodeIndex);
 
     }
 
